@@ -12,3 +12,7 @@ https://dev.mysql.com/downloads/installer/
 https://dev.mysql.com/downloads/connector/net/
 
 >Passo 4: Entrar no caminho da aplicação e digitar "dotnet run" no console
+
+Configurações da base estão em: /Services/DbSettings
+
+Configurações da aplicação estão em: /Properties/launchSettings.json

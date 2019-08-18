@@ -14,18 +14,25 @@ namespace projeto_mvc.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+            
+        }
         public IActionResult Index()
         {
+            using(var context = new DbContext())
+            {
+            }
             return View();
         }
 
         public IActionResult visualizar(){
             List<UsuarioViewModel> result;
 
-                using(var context = new DbContext<UsuarioViewModel>())
-                {
-                    result = context.Select("SELECT * FROM USUARIOS");
-                }
+            using(var context = new DbContext())
+            {
+                result = context.GetCollection<UsuarioViewModel>("SELECT * FROM USUARIOS");
+            }
             return View(result);
         }
 

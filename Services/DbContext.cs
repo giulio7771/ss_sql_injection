@@ -7,20 +7,27 @@ using MySql.Data.MySqlClient;
 
 namespace projeto_mvc.Services
 { 
-    public class DbContext<T>: IDisposable
+    public class DbContext: IDisposable
     {
         TransactionScope transaction;
         public DbContext()
         {
+            new DbService();
+            new DbDefinitions();
             transaction = new TransactionScope();
         }
 
-        public List<T> Select(string query)
+        public List<T> GetCollection<T>(string query)
         {
             DataTable table = new DbExecuter().GetData(new MySqlCommand(query));
             if (table.Rows.Count == 0)
                 return null;
             return table.ToObjectCollection<T>();
+        }
+
+        public void Execute(string query)
+        {
+            new DbExecuter().Execute(new MySqlCommand(query));
         }
 
         public void Dispose()

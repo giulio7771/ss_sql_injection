@@ -11,7 +11,7 @@ namespace projeto_mvc.Services
 
         static DbHelper()
         {
-            connectionString = "Server=localhost;DataBase=PeerOne;Uid=root;Pwd=1234";
+            connectionString = "Server=localhost;DataBase=ExampleDb;Uid=root;Pwd=1234";
         }
         public DbHelper()
         {

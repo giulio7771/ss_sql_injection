@@ -10,7 +10,7 @@ namespace projeto_mvc.Services
     {
         public DbDefinitions()
         {
-            Create();
+            Create(true);
         }
 
         public void Create(bool dropTables = false)
@@ -38,8 +38,12 @@ namespace projeto_mvc.Services
                     string DataType = getDBType(props[j]);
                     Null = false;
                     string DbNull = (Null) ? "NULL" : "NOT NULL";
-                    query += props[j].Name + " " + DataType + " " + DbNull + ",";
-                    if (PropertyName.EndsWith("ID") && PropertyName != "ID")
+                    query += props[j].Name + " " + DataType + " " + DbNull;
+                    if(PropertyName == "Id"){
+                        query += " AUTO_INCREMENT";
+                    }
+                    query += ", "; 
+                    if (PropertyName.EndsWith("Id") && PropertyName != "Id")
                     {
                         for (int l = 0; l < ClassType.Length; l++)
                         {

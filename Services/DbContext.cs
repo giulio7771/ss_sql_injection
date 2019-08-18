@@ -6,14 +6,19 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 
 namespace projeto_mvc.Services
-{ 
-    public class DbContext: IDisposable
+{
+    public class DbContext : IDisposable
     {
         TransactionScope transaction;
         public DbContext()
         {
-            new DbService();
-            new DbDefinitions();
+            if (DbSettings.startup)
+            {
+                DbSettings.startup = false;
+                new DbService();
+                new DbDefinitions();
+                new Seeds();
+            }
             transaction = new TransactionScope();
         }
 

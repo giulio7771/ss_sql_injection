@@ -20,10 +20,12 @@ namespace projeto_mvc.Controllers
         }
         public IActionResult Index()
         {
+            IEnumerable<UsuarioViewModel> result;
             using(var context = new DbContext())
             {
+                result = context.GetCollection<UsuarioViewModel>("SELECT * FROM USUARIO");
             }
-            return View();
+            return View(result);
         }
 
         public IActionResult visualizar(){

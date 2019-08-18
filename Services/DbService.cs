@@ -8,7 +8,7 @@ namespace projeto_mvc.Services
     {
         public DbService()
         {
-            EnsureCreated("ExampleDb");
+            EnsureCreated(DbSettings.DbName);
         }
 
         public void EnsureCreated(string name)

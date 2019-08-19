@@ -22,17 +22,17 @@ namespace projeto_mvc.Services
             transaction = new TransactionScope();
         }
 
-        public List<T> GetCollection<T>(string query)
+        public List<T> GetCollection<T>(MySqlCommand query)
         {
-            DataTable table = new DbExecuter().GetData(new MySqlCommand(query));
+            DataTable table = new DbExecuter().GetData(query);
             if (table.Rows.Count == 0)
                 return null;
             return table.ToObjectCollection<T>();
         }
 
-        public void Execute(string query)
+        public void Execute(MySqlCommand query)
         {
-            new DbExecuter().Execute(new MySqlCommand(query));
+            new DbExecuter().Execute(query);
         }
 
         public void Dispose()

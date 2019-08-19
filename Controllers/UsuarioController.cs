@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using projeto_mvc.Models;
 using projeto_mvc.Services;
 using System.Linq;
+using MySql.Data.MySqlClient;
 
 namespace projeto_mvc.Controllers
 {
     public class UsuarioController : Controller
     {
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
@@ -20,8 +22,12 @@ namespace projeto_mvc.Controllers
             List<UsuarioViewModel> results;
             using (var context = new DbContext())
             {
+                var command = new MySqlCommand($"SELECT * FROM USUARIO WHERE Login = '@login' AND Senha = '@senha'");
+                command.Parameters.AddWithValue("@login", login);
+                command.Parameters.AddWithValue("@senha", senha);
+
                 results = context.GetCollection<UsuarioViewModel>(
-                    $"SELECT * FROM USUARIO WHERE Login = '{login}' AND Senha = '{senha}'"
+                    command
                     );
             }
             if (results != null)
@@ -29,6 +35,36 @@ namespace projeto_mvc.Controllers
             else
                 ViewData["feedback"] = "login ou senha errado.";
             return View("login");
+        }
+
+        private string TratarInput(string input)
+        {
+            string result = "";
+            for (int i = 0; i < input.Length; i++)
+            {
+                switch (input[i])
+                {
+                    case '0':
+                        break;
+
+                    case '\'':
+                    case '\"':
+                    case '\b':
+                    case '\n':
+                    case '\r':
+                    case '\t':
+                    case 'z':
+                    case '\\':
+                    case '%':
+                    case '_':
+                        result += "\\" + input[i];
+                        break;
+                    default:
+                        result += input[i];
+                        break;
+                }
+            }
+            return result;
         }
     }
 }

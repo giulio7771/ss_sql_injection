@@ -23,7 +23,7 @@ namespace projeto_mvc.Controllers
             IEnumerable<UsuarioViewModel> result;
             using(var context = new DbContext())
             {
-                result = context.GetCollection<UsuarioViewModel>("SELECT * FROM USUARIO");
+                result = context.GetCollection<UsuarioViewModel>(new MySqlCommand("SELECT * FROM USUARIO"));
             }
             return View(result);
         }
@@ -33,7 +33,7 @@ namespace projeto_mvc.Controllers
 
             using(var context = new DbContext())
             {
-                result = context.GetCollection<UsuarioViewModel>("SELECT * FROM USUARIOS");
+                result = context.GetCollection<UsuarioViewModel>(new MySqlCommand("SELECT * FROM USUARIOS"));
             }
             return View(result);
         }

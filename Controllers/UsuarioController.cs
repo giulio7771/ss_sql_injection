@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using projeto_mvc.Models;
@@ -22,9 +22,7 @@ namespace projeto_mvc.Controllers
             List<UsuarioViewModel> results;
             using (var context = new DbContext())
             {
-                var command = new MySqlCommand($"SELECT * FROM USUARIO WHERE Login = '@login' AND Senha = '@senha'");
-                command.Parameters.AddWithValue("@login", login);
-                command.Parameters.AddWithValue("@senha", senha);
+                var command = new MySqlCommand($"SELECT * FROM USUARIO WHERE Login = '"+TratarInput(login)+"' AND Senha = '"+TratarInput(senha)+"'");
 
                 results = context.GetCollection<UsuarioViewModel>(
                     command
@@ -45,8 +43,6 @@ namespace projeto_mvc.Controllers
                 switch (input[i])
                 {
                     case '0':
-                        break;
-
                     case '\'':
                     case '\"':
                     case '\b':

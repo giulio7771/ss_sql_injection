@@ -42,14 +42,8 @@ namespace projeto_mvc.Controllers
             {
                 switch (input[i])
                 {
-                    case '0':
                     case '\'':
                     case '\"':
-                    case '\b':
-                    case '\n':
-                    case '\r':
-                    case '\t':
-                    case 'z':
                     case '\\':
                     case '%':
                     case '_':

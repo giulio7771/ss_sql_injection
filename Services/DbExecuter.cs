@@ -8,39 +8,30 @@ namespace projeto_mvc.Services
 {
     public class DbExecuter
     {
-        private DbHelper helper =
-            new DbHelper();
+        private DbHelper helper;
+        public DbExecuter(bool withDatabase = true)
+        {
+            helper =
+            new DbHelper(withDatabase);
+        }
 
         public int Execute(MySqlCommand command)
         {
             using (helper)
             {
-                try
-                {
-                    helper.Setup(command);
-                    return command.ExecuteNonQuery();
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Erro ao conectar-se com o banco de dados.");
-                }
+                helper.Setup(command);
+                return command.ExecuteNonQuery();
             }
         }
+
         public DataTable GetData(MySqlCommand command)
         {
             using (helper)
             {
-                try
-                {
-                    helper.Setup(command);
-                    DataTable table = new DataTable();
-                    table.Load(command.ExecuteReader());
-                    return table;
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Erro ao buscar valores no banco de dados.");
-                }
+                helper.Setup(command);
+                DataTable table = new DataTable();
+                table.Load(command.ExecuteReader());
+                return table;
             }
         }
     }

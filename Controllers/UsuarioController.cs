@@ -22,7 +22,7 @@ namespace projeto_mvc.Controllers
             List<UsuarioViewModel> results;
             using (var context = new DbContext())
             {
-                var command = new MySqlCommand($"SELECT * FROM USUARIO WHERE Login = '"+TratarInput(login)+"' AND Senha = '"+TratarInput(senha)+"'");
+                var command = new MySqlCommand($"SELECT * FROM USUARIO WHERE Login = '" + TratarInput(login) + "' AND Senha = '" + TratarInput(senha) + "'");
 
                 results = context.GetCollection<UsuarioViewModel>(
                     command
@@ -47,7 +47,7 @@ namespace projeto_mvc.Controllers
                     case '\\':
                     case '%':
                     case '_':
-                        result += "\\" + input[i];
+                        result += '\\' + input[i];
                         break;
                     default:
                         result += input[i];

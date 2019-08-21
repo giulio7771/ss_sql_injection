@@ -11,11 +11,14 @@ namespace projeto_mvc.Services
 
         static DbHelper()
         {
-            connectionString = $"{DbSettings.ConnectionString}Database={DbSettings.DbName};";
+            connectionString = DbSettings.ConnectionString;
         }
-        public DbHelper()
+        public DbHelper(bool useDatabase)
         {
-            connection = new MySqlConnection(connectionString);
+            if (useDatabase)
+                connection = new MySqlConnection($"{connectionString}Database={DbSettings.DbName};");
+            else
+                connection = new MySqlConnection(connectionString);
         }
         public void OpenConnection()
         {

@@ -13,7 +13,7 @@ namespace projeto_mvc.Services
 
         public void EnsureCreated(string name)
         {
-            new DbExecuter().Execute(new MySqlCommand(
+            new DbExecuter(false).Execute(new MySqlCommand(
                 $"CREATE DATABASE IF NOT EXISTS {name};"
             ));
         }
